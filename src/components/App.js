@@ -12,7 +12,7 @@ const fetchPrices = () => {
     .catch(err => {
       console.log(err)
     });
-}
+};
 
 export default function App() {
   
@@ -57,7 +57,7 @@ export default function App() {
       <div>
         <h1>Coinbase Practice App</h1>
         <div>
-          <div>
+          <div className="user-card">
             <h2>Colin Eckert</h2>
             <h3>Funds: ${funds.toLocaleString()}</h3>
             <h3>Coins: {coins}</h3>
@@ -65,19 +65,19 @@ export default function App() {
           <div>
             <h2>Bitcoin Rates</h2>
             <div>
-              <p>Last Updated: {time.updated}</p>
               <ul>
                 {bpi.map((coin, idx) => {
-                    return <li key={idx}>{coin.code}: ${coin.rate_float.toFixed(2)}</li>
+                  return <li key={idx}>{coin.code}: ${coin.rate_float.toFixed(2)}</li>
                 })}
               </ul>
+              <p>Last Updated: {time.updated}</p>
             </div>
           </div>
         </div>
       </div>
       <div className="transactions-container">
         <h2>Transactions</h2>
-        <div>{error}</div>
+        <p className="error">{error}</p>
         <button onClick={() => buyOrder()}>Buy</button>
         <button onClick={() => sellOrder()}>Sell</button>
         <div>
