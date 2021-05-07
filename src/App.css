@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+.order-book-container {
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  padding-left: 10px;
+}
+
+.buy {
+  color: red;
+}
+
+.sell {
+  color: green;
+}
+
+.transactions-container > button {
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.transactions {
+  padding-top: 10px;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+.order {
+  padding: 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin: 5px;
+}
