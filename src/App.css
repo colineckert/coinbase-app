@@ -4,6 +4,10 @@
   padding-left: 10px;
 }
 
+.order-book-container h1 {
+  color: blue;
+}
+
 .buy {
   color: red;
 }
@@ -15,6 +19,14 @@
 .transactions-container > button {
   padding: 5px 10px;
   margin-right: 10px;
+  /* background-color: blue; */
+  color: white;
+  outline: none;
+  border-radius: 5px;
+}
+
+.transactions-container > button:hover {
+  background-color: blue;
 }
 
 .transactions {
@@ -29,6 +41,7 @@
   border: 1px solid grey;
   border-radius: 5px;
   margin: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .user-card {
