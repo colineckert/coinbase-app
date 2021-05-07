@@ -31,12 +31,16 @@ export default function App() {
   }, []);
 
   const buyOrder = () => {
-    setCoins(coins + 1);
-    setFunds(Math.floor(funds - bpi[0].rate_float));
-    setTransactions([ ...transactions, 
-      {type: "Buy", amount: bpi[0].rate_float} ]);
-    setError('');
-    console.log(transactions);
+    if ((funds - bpi[0].rate_float) < 0) {
+      setError("Not enough funds");
+    } else {
+      setCoins(coins + 1);
+      setFunds(Math.floor(funds - bpi[0].rate_float));
+      setTransactions([ ...transactions, 
+        {type: "Buy", amount: bpi[0].rate_float} ]);
+      setError('');
+      console.log(transactions);
+    }
   }
 
   const sellOrder = () => {
@@ -47,9 +51,9 @@ export default function App() {
       setFunds(Math.floor(funds + bpi[0].rate_float));
       setTransactions([ ...transactions, 
         {type: "Sell", amount: bpi[0].rate_float} ]);
+      setError('');
+      console.log(transactions);
     }
-    
-    console.log(transactions);
   }
 
   return (
@@ -67,10 +71,14 @@ export default function App() {
             <div>
               <ul>
                 {bpi.map((coin, idx) => {
-                  return <li key={idx}>{coin.code}: ${coin.rate_float.toFixed(2)}</li>
+                  return (
+                    <li key={idx}>
+                      <p>{coin.code}: ${coin.rate_float.toFixed(2)}</p>
+                      <p>Updated: {time.updated}</p>
+                    </li>
+                  )
                 })}
               </ul>
-              <p>Last Updated: {time.updated}</p>
             </div>
           </div>
         </div>
