@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+const fetchPrices = () => {
+  const url = 'https://api.coindesk.com/v1/bpi/currentprice.json';
+  return fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      return data;
+    })
+    .catch(err => {
+      console.log(err)
+    });
+}
 
 export default function App() {
+  
   const [count, setCount] = useState(0);
   const [time, setTime] = useState({});
   const [bpi, setBpi] = useState([]);
 
-
-  function fetchPrices() {
-    const url = 'https://api.coindesk.com/v1/bpi/currentprice.json';
-    fetch(url)
-      .then((res) => res.json())
-      .then(({time, bpi}) => {
+  useEffect(() => {
+    fetchPrices().then(({time, bpi}) => {
         setTime(time);
         setBpi([bpi.EUR, bpi.USD]);
-      })
-      .catch(err => console.log(err));
-    
-    const prices = bpi.map((coin, idx) => {
-      return <li key={idx}>{coin.code}: {coin.rate}</li>
-    });
-    return prices;
-  }
-
-  const latestPrices = fetchPrices();
+      });
+  }, [])
 
   return (
     <div>
@@ -33,10 +34,14 @@ export default function App() {
       </div>
       <div>
         <h2>Bitcoin</h2>
-        <button onClick={() => fetchPrices()}>Fetch Latest Prices</button>
+        <button onClick={fetchPrices}>Fetch Latest Prices</button>
         <div>
           <p>{time.updated}</p>
-          {latestPrices}
+          <ul>
+            {bpi.map((coin, idx) => {
+                return <li key={idx}>{coin.code}: {coin.rate}</li>
+            })}
+          </ul>
         </div>
       </div>
       <h2>List Practice</h2>
